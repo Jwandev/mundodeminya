@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minya | Mundo de Minya</title>
+<meta name="description" content="Cada seguidor desperta um humano. Acompanhe a evolução da humanidade, do primeiro fogo até os dias de hoje.">
+<meta property="og:title" content="Minya | Mundo de Minya">
+<meta property="og:description" content="Cada seguidor desperta um humano em Minya.">
+<meta property="og:image" content="https://mundodeminya.com.br/img/ep02.jpg">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1a24;--bg2:#14222f;--card:#1a2a38;--line:#2b1a10;--fire:#f7a531;--fire2:#ffe08a;--ember:#e8661c;--ink:#f3ead8;--mut:#9fb0bf;--px:'Press Start 2P',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Montserrat,system-ui,sans-serif;line-height:1.55}
+img.px{image-rendering:pixelated}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+/* nav */
+nav{position:sticky;top:0;z-index:20;background:rgba(15,26,36,.9);backdrop-filter:blur(6px);border-bottom:3px solid var(--line)}
+nav .wrap{display:flex;align-items:center;gap:18px;height:62px}
+nav .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--px);font-size:14px;color:var(--fire2)}
+nav .brand img{width:38px;height:38px;border-radius:50%}
+nav .links{margin-left:auto;display:flex;gap:18px;font-weight:700;font-size:14px}
+nav .links a{text-decoration:none;color:var(--mut)}nav .links a:hover{color:var(--fire2)}
+@media(max-width:820px){nav .links{display:none}}
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:3px solid var(--line);background:radial-gradient(ellipse at 70% 100%,#4a220c 0%,#1a1b24 45%,var(--bg) 75%)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;min-height:calc(100vh - 62px);padding-top:40px;padding-bottom:40px}
+.hero h1{font-family:var(--px);font-size:clamp(34px,6vw,64px);margin:0 0 14px;color:var(--fire2);text-shadow:4px 4px 0 var(--line),0 0 28px rgba(247,165,49,.45);letter-spacing:2px}
+.hero .kicker{font-family:var(--px);font-size:11px;color:var(--fire);letter-spacing:1px}
+.hero p.lead{font-size:clamp(17px,2vw,21px);font-weight:600;color:var(--ink);max-width:520px;margin:0 0 26px}
+.scene{position:relative;border:4px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 0 60px rgba(232,102,28,.25);aspect-ratio:9/16;max-height:78vh;justify-self:center}
+.scene img{display:block;width:100%;height:100%;object-fit:cover}
+.embers{position:absolute;inset:0;pointer-events:none}.embers i{position:absolute;bottom:30%;width:5px;height:5px;background:var(--fire2);box-shadow:0 0 6px var(--fire);opacity:0;animation:rise 4s linear infinite}@keyframes rise{0%{transform:translate(0,0);opacity:0}10%{opacity:1}100%{transform:translate(18px,-260px);opacity:0}}
+@media(max-width:820px){.hero .wrap{grid-template-columns:1fr;min-height:auto}.scene{max-height:none;width:min(100%,380px)}}
+/* counter */
+.meter{background:var(--card);border:3px solid var(--line);border-radius:12px;padding:16px 18px;max-width:520px;margin-bottom:22px;box-shadow:0 5px 0 var(--line)}
+.meter .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.meter b{font-family:var(--px);font-size:13px;color:var(--fire)}
+.meter span{font-size:13px;color:var(--mut);font-weight:600}
+.bar{height:18px;background:#0b131b;border:3px solid var(--line);margin-top:12px;position:relative}
+.bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--fire) 0 12px,var(--fire2) 12px 15px);transition:width 1.2s steps(12)}
+/* buttons */
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:800;font-size:15px;padding:13px 18px;border:3px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);box-shadow:0 4px 0 var(--line);transition:transform .08s}
+.btn:hover{transform:translateY(-2px)}.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.btn.primary{background:var(--fire);color:#1a0e06}
+.btn svg{width:20px;height:20px}
+/* sections */
+section{padding:80px 0;border-bottom:3px solid var(--line)}
+section:nth-of-type(even){background:var(--bg2)}
+h2{font-family:var(--px);font-size:clamp(18px,3vw,26px);color:var(--fire2);margin:0 0 10px;text-shadow:3px 3px 0 var(--line)}
+.sub{color:var(--mut);font-weight:600;margin:0 0 34px;max-width:640px}
+/* episodes */
+.eps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+.ep{background:var(--card);border:3px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;box-shadow:0 5px 0 var(--line);transition:transform .1s}
+.ep:hover{transform:translateY(-3px)}
+.ep img{display:block;width:100%;aspect-ratio:9/16;object-fit:cover}
+.ep .t{padding:12px 14px;font-weight:800}.ep .t small{display:block;color:var(--mut);font-weight:600}
+.ep.locked{position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;aspect-ratio:9/19;text-align:center;padding:20px;color:var(--mut)}
+.ep.locked .lock{font-family:var(--px);font-size:28px;color:var(--fire);margin-bottom:14px}
+/* humans */
+.hums{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}
+.hum{background:var(--card);border:3px solid var(--line);border-radius:12px;padding:16px 12px 14px;text-align:center;box-shadow:0 5px 0 var(--line);position:relative}
+.hum .pic{height:170px;display:flex;align-items:flex-end;justify-content:center;background:radial-gradient(ellipse at 50% 95%,rgba(247,165,49,.35),transparent 65%)}
+.hum .pic img{max-height:160px;image-rendering:pixelated}
+.hum h3{font-family:var(--px);font-size:12px;margin:14px 0 6px;color:var(--fire2)}
+.hum .role{font-weight:800;font-size:14px}
+.hum .by{font-size:12px;color:var(--mut);margin-top:6px}
+.hum .n{position:absolute;top:10px;left:12px;font-family:var(--px);font-size:9px;color:var(--mut)}
+.hum.new{border-style:dashed;display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--mut);text-decoration:none;min-height:280px}
+.hum.new .plus{font-family:var(--px);font-size:34px;color:var(--fire)}
+/* timeline */
+.tl{position:relative;margin-left:14px;border-left:4px dashed var(--line);padding-left:30px}
+.era{position:relative;margin-bottom:22px;background:var(--card);border:3px solid var(--line);border-radius:12px;padding:14px 18px;box-shadow:0 4px 0 var(--line)}
+.era:before{content:"";position:absolute;left:-44px;top:18px;width:20px;height:20px;background:var(--fire);border:3px solid var(--line)}
+.era.lock{opacity:.55}.era.lock:before{background:#3a4652}
+.era .g{font-family:var(--px);font-size:10px;color:var(--fire)}
+.era h4{margin:6px 0 2px;font-size:17px}
+.era p{margin:0;color:var(--mut);font-size:14px;font-weight:600}
+.era.now{outline:3px solid var(--fire);outline-offset:3px}
+/* map */
+.mapbox{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.mapbox .m{border:4px solid var(--line);border-radius:12px;overflow:hidden;position:relative;max-width:420px;justify-self:center}
+.mapbox .m img{display:block;width:100%;image-rendering:pixelated;filter:brightness(.65) saturate(.9)}
+.mapbox .m .fog{position:absolute;inset:0;background:radial-gradient(circle at 55% 60%,transparent 0 16%,rgba(8,12,18,.94) 30%)}
+.mapbox .m .dot{position:absolute;left:55%;top:60%;width:14px;height:14px;margin:-7px;background:var(--fire2);box-shadow:0 0 18px 6px var(--fire);animation:pulse 1.4s steps(4) infinite}
+@keyframes pulse{50%{transform:scale(1.5)}}
+@media(max-width:820px){.mapbox{grid-template-columns:1fr}}
+/* shop */
+.shop{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.tier{background:var(--card);border:3px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 6px 0 var(--line);display:flex;flex-direction:column}
+.tier .tag{align-self:flex-start;font-family:var(--px);font-size:9px;background:#0b131b;border:2px solid var(--line);padding:6px 8px;color:var(--mut)}
+.tier h3{font-family:var(--px);font-size:14px;color:var(--fire2);margin:16px 0 8px;line-height:1.5}
+.tier p{color:var(--mut);font-weight:600;font-size:14px;flex:1}
+.tier ul{padding-left:18px;margin:0 0 16px;font-size:14px}
+.tier.gold{border-color:#7a5212;background:linear-gradient(160deg,#2a2412,#1a2a38 60%)}
+.tier.gold .tag{color:var(--fire2);border-color:#7a5212}
+.soon{margin-top:28px;background:#0b131b;border:3px dashed var(--fire);border-radius:12px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between}
+.soon b{font-family:var(--px);font-size:11px;color:var(--fire)}
+/* how */
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.step{background:var(--card);border:3px solid var(--line);border-radius:12px;padding:18px}
+.step .k{font-family:var(--px);font-size:22px;color:var(--fire)}
+.step h4{margin:10px 0 6px}.step p{margin:0;color:var(--mut);font-weight:600;font-size:14px}
+footer{padding:40px 0 60px;text-align:center;color:var(--mut);font-size:13px}
+footer .btns{justify-content:center;margin-bottom:18px}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s,transform .6s}.reveal.on{opacity:1;transform:none}
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="#inicio"><img class="px" src="img/logo.png" alt="">MINYA</a>
+  <div class="links"><a href="#episodios">Episódios</a><a href="#humanos">Humanos</a><a href="#linha-do-tempo">Linha do tempo</a><a href="#mapa">Mapa</a><a href="#skins">Skins</a></div>
+</div></nav>
+
+<header class="hero" id="inicio"><div class="wrap">
+  <div>
+    <div class="kicker">BEM-VINDOS AO MUNDO DE</div>
+    <h1>MINYA</h1>
+    <p class="lead">Cada seguidor desperta um humano. Do primeiro fogo até os dias de hoje, a humanidade só evolui se você ajudar.</p>
+    <div class="meter">
+      <div class="row"><b id="cnt">HUMANOS: 12 / 50</b><span id="nxt">Próximo: Episódio 3</span></div>
+      <div class="bar"><i id="barfill" style="width:0"></i></div>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="#despertar">Despertar em Minya</a>
+      <a class="btn" href="#episodios">Ver episódios</a>
+    </div>
+    <div class="btns" style="margin-top:14px" id="socials"></div>
+  </div>
+  <div class="scene"><img src="img/cena.jpg" alt="Os humanos de Minya reunidos em volta da árvore em chamas"><div class="embers"></div></div>
+</div></header>
+
+<section id="episodios"><div class="wrap reveal">
+  <h2>EPISÓDIOS</h2>
+  <p class="sub">Um novo episódio sai a cada meta de humanos. Assista na rede que preferir.</p>
+  <div class="eps" id="eps"></div>
+</div></section>
+
+<section id="humanos"><div class="wrap reveal">
+  <h2>OS HUMANOS</h2>
+  <p class="sub">Todo humano de Minya foi despertado por alguém da comunidade. Cada um ganha a versão pré-histórica da sua profissão.</p>
+  <div class="hums" id="hums"></div>
+</div></section>
+
+<section id="linha-do-tempo"><div class="wrap reveal">
+  <h2>LINHA DO TEMPO</h2>
+  <p class="sub">Cada meta de humanos destrava um novo passo da humanidade.</p>
+  <div class="tl" id="tl"></div>
+</div></section>
+
+<section id="mapa"><div class="wrap reveal mapbox">
+  <div>
+    <h2>MAPA DE MINYA</h2>
+    <p class="sub">Por enquanto, o mundo conhecido é só a luz de uma fogueira. Quanto mais humanos despertarem, mais longe a tribo vai explorar, e o mapa se revela.</p>
+    <a class="btn" href="#despertar">Ajudar a explorar</a>
+  </div>
+  <div class="m"><img src="img/mapa.png" alt="Mapa de Minya coberto de névoa"><div class="fog"></div><div class="dot"></div></div>
+</div></section>
+
+<section id="skins"><div class="wrap reveal">
+  <h2>LOJA DE SKINS</h2>
+  <p class="sub">Em breve: deixe sua marca em Minya. Seu personagem com visual exclusivo, aparecendo nos episódios.</p>
+  <div class="shop">
+    <div class="tier"><span class="tag">EM BREVE</span><h3>DESPERTAR GARANTIDO</h3><p>Seu humano entra com certeza no próximo episódio, com nome e profissão.</p><ul><li>Aparição garantida</li><li>Ficha no site</li></ul></div>
+    <div class="tier"><span class="tag">EM BREVE</span><h3>SKIN DE ERA</h3><p>Roupa e acessório exclusivos que evoluem com a humanidade: da pele de lobo à armadura de bronze.</p><ul><li>Visual exclusivo em pixel art</li><li>Evolui a cada era</li></ul></div>
+    <div class="tier gold"><span class="tag">LENDÁRIO</span><h3>HUMANO LENDÁRIO</h3><p>Seu personagem fixo em todos os episódios, com papel na história e versão em 3D.</p><ul><li>Presença em todos os episódios</li><li>Modelo 3D do seu personagem</li></ul></div>
+  </div>
+  <div class="soon"><div><b>LISTA DE ESPERA</b><div style="color:var(--mut);font-weight:600;font-size:14px;margin-top:6px">Mande "SKIN" no direct do Instagram e seja avisado primeiro, com preço de fundador.</div></div><a class="btn primary" href="https://ig.me/m/mundodeminya">Entrar na lista</a></div>
+</div></section>
+
+<section id="despertar"><div class="wrap reveal">
+  <h2>COMO DESPERTAR</h2>
+  <p class="sub">Leva 10 segundos.</p>
+  <div class="how">
+    <div class="step"><div class="k">1</div><h4>Siga</h4><p>Em qualquer rede. Cada seguidor é um novo humano no contador.</p></div>
+    <div class="step"><div class="k">2</div><h4>Comente</h4><p>Seu nome e sua profissão no último episódio.</p></div>
+    <div class="step"><div class="k">3</div><h4>Desperte</h4><p>Você aparece em Minya na versão pré-histórica da sua profissão.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="btns" id="socials2"></div>
+  Minya | Mundo de Minya · Bem-vindos ao mundo de Minya
+</div></footer>
+
+<script>
+// ====== EDITE AQUI ======
+const HUMANOS = 12, META = 50, PROXIMO = 'Episódio 3';
+const REDES = [
+  ['Instagram','https://www.instagram.com/mundodeminya/','<rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2"/>'],
+  ['TikTok','https://www.tiktok.com/@mundodeminya','<path d="M16 3c.4 2.4 1.9 4 4.5 4.2v3.2c-1.6 0-3.1-.5-4.5-1.4v6.3A6.2 6.2 0 1 1 9.8 9v3.3a3 3 0 1 0 3 3V3H16z"/>'],
+  ['YouTube','https://www.youtube.com/@mundodeminya','<path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.2.4-2.5.4-3.8s-.1-2.6-.4-3.8zM10 15V9l5.2 3L10 15z"/>'],
+  ['X','https://x.com/mundodeminya','<path d="M17.5 3h3.3l-7.2 8.2L22 21h-6.6l-5.2-6.8L4.3 21H1l7.7-8.8L.6 3h6.8l4.7 6.2L17.5 3zm-1.2 16h1.8L6.4 4.9H4.4L16.3 19z"/>'],
+];
+const EPISODIOS = [
+  {n:1, t:'O Raio', img:'img/ep01.jpg', yt:'https://www.youtube.com/shorts/BqnICf0UOko', ig:'https://www.instagram.com/mundodeminya/reel/DfyH8D8OYyR/'},
+  {n:2, t:'A Luz no Escuro', img:'img/ep02.jpg', yt:'https://www.youtube.com/shorts/HTGnQ-li1VM', ig:'https://www.instagram.com/mundodeminya/reel/Df0ifr6NDeZ/'},
+];
+const HUMS = [
+  ['O Primeiro','h_heroi.png','Guardião do fogo','Viu o fogo nascer'],
+  ['Cauã','h_caua.png','O desconfiado','Ep. 2'],
+  ['Samuel','h_samuel.png','O faminto','Ep. 2'],
+  ['Abel','h_abel.png','O bondoso e esperto','Ep. 2'],
+  ['Kael','h_kael.png','O ferreiro lendário','Ep. 2'],
+  ['Kian','h_kian.png','Criador do primeiro ritual','Ep. 2'],
+  ['Cain','h_cain.png','O que não tira os olhos do fogo','Ep. 2'],
+  ['Poly','h_poly.png','Seguiu a fumaça','Ep. 2'],
+  ['Zariel','h_zariel.png','Seguiu as estrelas','Ep. 2'],
+  ['???','h_nona.png','A nona humana','Nome escolhido pela comunidade'],
+];
+const ERAS = [
+  [1,'O Raio','O fogo nasce. O primeiro humano acorda.'],
+  [10,'A Luz no Escuro','Estranhos se encontram e dividem a primeira palavra.'],
+  [50,'Juntos','Fazem fogo com as próprias mãos e viram uma tribo.'],
+  [100,'A Primeira Caçada','Ferramentas de pedra e a primeira caçada.'],
+  [250,'Abrigo','O primeiro abrigo e as pinturas na caverna.'],
+  [500,'Os Outros','Encontram outra tribo: troca ou conflito?'],
+  [1000,'A Semente','A primeira plantação.'],
+  [2500,'A Aldeia','A primeira aldeia e os animais domesticados.'],
+  [5000,'Barro e Metal','Cerâmica, metal e a roda.'],
+  [10000,'Rumo ao Hoje','Escrita, cidades, impérios... até os dias de hoje.'],
+];
+// ====== FIM ======
+const ic = s => `<svg viewBox="0 0 24 24" fill="currentColor">${s}</svg>`;
+for (const id of ['socials','socials2']) document.getElementById(id).innerHTML = REDES.map(([n,u,s])=>`<a class="btn" href="${u}">${ic(s)}${n}</a>`).join('');
+document.getElementById('cnt').textContent = `HUMANOS: ${HUMANOS} / ${META}`;
+document.getElementById('nxt').textContent = `Próximo: ${PROXIMO}`;
+setTimeout(()=>document.getElementById('barfill').style.width = Math.min(100, HUMANOS/META*100)+'%', 300);
+const eps = EPISODIOS.map(e=>`<a class="ep" href="${e.ig}"><img src="${e.img}" alt="Capa do episódio ${e.n}"><div class="t">Ep. ${e.n} · ${e.t}<small>Instagram · <span onclick="event.preventDefault();location.href='${e.yt}'" style="text-decoration:underline">YouTube</span></small></div></a>`);
+eps.push(`<div class="ep locked"><div class="lock">?</div><b style="color:var(--ink)">Ep. ${EPISODIOS.length+1}</b>Desbloqueia com ${META} humanos</div>`);
+document.getElementById('eps').innerHTML = eps.join('');
+const hums = HUMS.map(([n,img,r,b],i)=>`<div class="hum"><span class="n">#${i+1}</span><div class="pic"><img src="img/${img}" alt="${n}"></div><h3>${n}</h3><div class="role">${r}</div><div class="by">${b}</div></div>`);
+hums.push(`<a class="hum new" href="#despertar"><div class="plus">+</div><b style="color:var(--ink);margin-top:10px">Você?</b>Comente seu nome e profissão</a>`);
+document.getElementById('hums').innerHTML = hums.join('');
+let cur = ERAS.filter(e=>HUMANOS>=e[0]).length-1;
+document.getElementById('tl').innerHTML = ERAS.map((e,i)=>`<div class="era ${i>cur?'lock':''} ${i===cur+1?'now':''}"><div class="g">${i>cur?'🔒 ':''}${e[0].toLocaleString('pt-BR')} HUMANOS</div><h4>${e[1]}</h4><p>${i>cur+1?'???':e[2]}</p></div>`).join('');
+// reveal
+const io = new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add('on')),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// embers
+const em=document.querySelector('.embers');
+for(let i=0;i<22;i++){const d=document.createElement('i');d.style.left=(20+Math.random()*70)+'%';d.style.animationDelay=(Math.random()*4)+'s';d.style.animationDuration=(3+Math.random()*3)+'s';em.appendChild(d);}
+</script>
+</body>
+</html>
