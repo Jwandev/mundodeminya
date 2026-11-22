@@ -37,6 +37,8 @@
 .btn.p{background:var(--fire);color:#1a0e06}
 .legend{position:fixed;left:12px;bottom:16px;z-index:10;background:rgba(15,26,36,.92);border:3px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--mut)}
 .legend span{color:var(--gold);font-weight:900}
+.pv .hud,.pv .bottom,.pv .legend{display:none}
+.pv #view{cursor:default}
 @media(max-width:640px){.legend{display:none}.count{min-width:0}}
 /* modal */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:20;padding:16px}
@@ -100,6 +102,7 @@ const HUMANOS = [
 ];
 // ================================================================
 
+if (location.search.includes('preview')) document.body.classList.add('pv');
 const world = document.getElementById('world'), view = document.getElementById('view');
 // fire
 const f = document.createElement('div'); f.className = 'fire'; f.style.left = FOGO.x+'px'; f.style.top = FOGO.y+'px'; world.appendChild(f);
