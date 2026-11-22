@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>O Mundo de Minya</title>
+<link rel="icon" href="../img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1a24;--card:#1a2a38;--line:#2b1a10;--fire:#f7a531;--fire2:#ffe08a;--gold:#ffd24a;--ink:#f3ead8;--mut:#9fb0bf;--px:'Press Start 2P',monospace}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#070b10;color:var(--ink);font-family:Montserrat,sans-serif;overflow:hidden;touch-action:none}
+#view{position:fixed;inset:0;overflow:hidden;cursor:grab}
+#view.drag{cursor:grabbing}
+#world{position:absolute;left:0;top:0;width:544px;height:976px;transform-origin:0 0;image-rendering:pixelated}
+#world>img.map{position:absolute;inset:0;width:544px;height:976px;image-rendering:pixelated}
+#fog{position:absolute;inset:0;width:544px;height:976px;pointer-events:none}
+.fire{position:absolute;width:14px;height:14px;margin:-7px;border-radius:2px;background:var(--fire2);box-shadow:0 0 12px 6px rgba(247,165,49,.9),0 0 40px 18px rgba(232,102,28,.45);animation:fl 0.35s steps(2) infinite alternate}
+@keyframes fl{to{transform:scale(1.25);box-shadow:0 0 16px 8px rgba(247,165,49,.95),0 0 52px 24px rgba(232,102,28,.5)}}
+.hum{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:2}
+.hum img{height:24px;image-rendering:pixelated;filter:drop-shadow(0 1px 0 rgba(0,0,0,.6))}
+.hum .tag{margin-bottom:2px;font-family:Montserrat,sans-serif;font-weight:900;font-size:3.6px;white-space:nowrap;padding:.6px 1.6px;border-radius:1.5px;background:rgba(10,8,6,.78);color:#fff;letter-spacing:.1px}
+.hum.f .tag{color:var(--gold);border:.4px solid rgba(255,210,74,.8);text-shadow:0 0 2px rgba(255,210,74,.7)}
+.hum:hover img{transform:translateY(-1px)}
+/* HUD */
+.hud{position:fixed;left:12px;right:12px;top:12px;display:flex;gap:10px;align-items:flex-start;pointer-events:none;z-index:10}
+.hud>*{pointer-events:auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;background:rgba(15,26,36,.92);border:3px solid var(--line);border-radius:12px;padding:8px 12px;color:var(--fire2);font-family:var(--px);font-size:12px}
+.brand img{width:30px;height:30px;border-radius:50%;image-rendering:pixelated}
+.count{margin-left:auto;background:rgba(15,26,36,.92);border:3px solid var(--line);border-radius:12px;padding:10px 14px;min-width:210px}
+.count b{font-family:var(--px);font-size:11px;color:var(--fire)}
+.count .bar{height:12px;background:#0b131b;border:2px solid var(--line);margin-top:8px;position:relative}
+.count .bar i{position:absolute;left:0;top:0;bottom:0;background:repeating-linear-gradient(90deg,var(--fire) 0 8px,var(--fire2) 8px 10px)}
+.count small{display:block;margin-top:6px;color:var(--mut);font-weight:700;font-size:11px}
+.bottom{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;gap:10px;z-index:10;flex-wrap:wrap;justify-content:center}
+.btn{font-family:Montserrat,sans-serif;font-weight:900;font-size:14px;padding:12px 16px;border-radius:10px;border:3px solid var(--line);background:var(--card);color:var(--ink);box-shadow:0 4px 0 var(--line);cursor:pointer;text-decoration:none}
+.btn.p{background:var(--fire);color:#1a0e06}
+.legend{position:fixed;left:12px;bottom:16px;z-index:10;background:rgba(15,26,36,.92);border:3px solid var(--line);border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;color:var(--mut)}
+.legend span{color:var(--gold);font-weight:900}
+@media(max-width:640px){.legend{display:none}.count{min-width:0}}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:20;padding:16px}
+.modal.on{display:flex}
+.card{background:var(--card);border:3px solid var(--line);border-radius:14px;max-width:380px;width:100%;padding:20px;box-shadow:0 6px 0 var(--line);position:relative}
+.card h3{font-family:var(--px);font-size:14px;color:var(--fire2);margin:0 0 10px;line-height:1.5}
+.card .gold{color:var(--gold)}
+.card p{margin:6px 0;font-weight:600;font-size:14px;color:var(--ink)}
+.card .mut{color:var(--mut)}
+.card .x{position:absolute;right:10px;top:8px;background:none;border:0;color:var(--mut);font-size:22px;cursor:pointer}
+.card .pic{float:right;height:72px;image-rendering:pixelated;margin:0 0 6px 10px}
+.card ol{padding-left:18px;margin:8px 0;font-weight:600;font-size:14px}
+.badge{display:inline-block;font-family:var(--px);font-size:8px;padding:5px 7px;border-radius:4px;background:#3a2c08;color:var(--gold);border:1px solid #7a5a12;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div id="view"><div id="world">
+  <img class="map" src="../img/mapa.png" alt="Mapa de Minya">
+  <canvas id="fog" width="544" height="976"></canvas>
+</div></div>
+
+<div class="hud">
+  <a class="brand" href="../"><img src="../img/logo.png" alt="">MINYA</a>
+  <div class="count"><b id="cnt">HUMANOS: 0</b><div class="bar"><i id="bar"></i></div><small id="nxt"></small></div>
+</div>
+<div class="legend"><span>Nome dourado</span> = fundador da Era 1</div>
+<div class="bottom">
+  <button class="btn p" id="wake">Despertar meu humano</button>
+  <button class="btn" id="home">Centralizar</button>
+</div>
+
+<div class="modal" id="m"><div class="card" id="mc"></div></div>
+
+<script>
+// ====================== DADOS (edite aqui) ======================
+// Total de humanos somando todas as redes
+const TOTAL = 1;
+const METAS = [
+  [10,  'A fogueira se acende de verdade'],
+  [50,  'A floresta é revelada: coleta'],
+  [100, 'A primeira caçada'],
+  [250, 'O primeiro abrigo'],
+  [500, 'A outra tribo'],
+  [1000,'A semente'],
+];
+const FOGO = {x: 300, y: 585};
+// Fundadores (Era 1) — nomes dourados
+const FUNDADORES = [
+  {at:'@_menor__jesus', nome:'Samuel', prof:'O Coletor',            img:'h_samuel.png', rede:'Instagram', x:250, y:612},
+  {at:'@dalezinxz472',  nome:'Kain',   prof:'O Guardião da Chama',   img:'h_cain.png',   rede:'Instagram', x:345, y:612},
+  {at:'@be._llini',     nome:'Abel',   prof:'O Repartidor',          img:'h_abel.png',   rede:'Instagram', x:298, y:640},
+  {at:'@akilianbr',     nome:'Kian',   prof:'O Xamã',                img:'h_kian.png',   rede:'Instagram', x:360, y:575},
+  {at:'@dlima_lucas',   nome:'Kael',   prof:'O Ferreiro Lendário',   img:'h_kael.png',   rede:'Instagram', x:232, y:572},
+  {at:'@arthrzx__',     nome:'Poly',   prof:'A Rastreadora',         img:'h_poly.png',   rede:'Instagram', x:325, y:646},
+  {at:'@Cauã0907',      nome:'Cauã',   prof:'O Vigia',               img:'h_caua.png',   rede:'YouTube',   x:262, y:540},
+  {at:'@lipe_y122011',  nome:'???',    prof:'O Ancião Mago',         img:'h_nona.png',   rede:'Instagram', x:338, y:538},
+];
+// Novos humanos (Era 2) — adicionar aqui conforme despertarem
+const HUMANOS = [
+  // {at:'@exemplo', nome:'Nome', prof:'Profissão pré-histórica', img:'h_poly.png', rede:'TikTok', x:300, y:640},
+];
+// ================================================================
+
+const world = document.getElementById('world'), view = document.getElementById('view');
+// fire
+const f = document.createElement('div'); f.className = 'fire'; f.style.left = FOGO.x+'px'; f.style.top = FOGO.y+'px'; world.appendChild(f);
+// humans
+function addHum(h, founder){
+  const d = document.createElement('div'); d.className = 'hum' + (founder ? ' f' : '');
+  d.style.left = h.x + 'px'; d.style.top = h.y + 'px';
+  d.innerHTML = `<div class="tag">${h.at}</div><img src="../img/${h.img}" alt="${h.nome}">`;
+  d.addEventListener('click', e => { e.stopPropagation(); showHum(h, founder); });
+  world.appendChild(d);
+}
+FUNDADORES.forEach(h => addHum(h, true));
+HUMANOS.forEach(h => addHum(h, false));
+// counter
+const total = TOTAL + 0;
+const next = METAS.find(m => total < m[0]) || METAS[METAS.length-1];
+document.getElementById('cnt').textContent = `HUMANOS: ${total}/${next[0]}`;
+document.getElementById('bar').style.width = Math.min(100, total/next[0]*100) + '%';
+document.getElementById('nxt').textContent = `Próximo: ${next[1]}`;
+// fog
+const fog = document.getElementById('fog').getContext('2d');
+function drawFog(){
+  const R = 95 + Math.min(400, total * 4);
+  fog.clearRect(0,0,544,976);
+  fog.fillStyle = 'rgba(6,9,14,0.93)'; fog.fillRect(0,0,544,976);
+  fog.globalCompositeOperation = 'destination-out';
+  const g = fog.createRadialGradient(FOGO.x, FOGO.y, R*0.35, FOGO.x, FOGO.y, R);
+  g.addColorStop(0,'rgba(0,0,0,1)'); g.addColorStop(1,'rgba(0,0,0,0)');
+  fog.fillStyle = g; fog.beginPath(); fog.arc(FOGO.x, FOGO.y, R, 0, Math.PI*2); fog.fill();
+  fog.globalCompositeOperation = 'source-over';
+  // pixelate fog edge
+}
+drawFog();
+// pan & zoom
+let s = 1, tx = 0, ty = 0;
+function apply(){ world.style.transform = `translate(${tx}px,${ty}px) scale(${s})`; }
+function center(z){
+  s = z || Math.max(2.2, Math.min(4, Math.min(innerWidth, innerHeight) / 160));
+  tx = innerWidth/2 - FOGO.x*s; ty = innerHeight/2 - FOGO.y*s; apply();
+}
+center();
+function zoomAt(cx, cy, k){
+  const ns = Math.max(0.6, Math.min(8, s * k)); k = ns / s;
+  tx = cx - (cx - tx) * k; ty = cy - (cy - ty) * k; s = ns; apply();
+}
+view.addEventListener('wheel', e => { e.preventDefault(); zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.15 : 1/1.15); }, {passive:false});
+const pts = new Map(); let last = null, lastDist = 0;
+view.addEventListener('pointerdown', e => { if (e.target.closest('.hum')) return; view.setPointerCapture(e.pointerId); pts.set(e.pointerId, {x:e.clientX, y:e.clientY}); view.classList.add('drag'); });
+view.addEventListener('pointermove', e => {
+  if (!pts.has(e.pointerId)) return;
+  const p = pts.get(e.pointerId); const dx = e.clientX - p.x, dy = e.clientY - p.y;
+  pts.set(e.pointerId, {x:e.clientX, y:e.clientY});
+  if (pts.size === 1){ tx += dx; ty += dy; apply(); }
+  else if (pts.size === 2){
+    const [a, b] = [...pts.values()]; const d = Math.hypot(a.x-b.x, a.y-b.y);
+    if (lastDist) zoomAt((a.x+b.x)/2, (a.y+b.y)/2, d/lastDist); lastDist = d;
+  }
+});
+function up(e){ pts.delete(e.pointerId); if (pts.size < 2) lastDist = 0; if (!pts.size) view.classList.remove('drag'); }
+view.addEventListener('pointerup', up); view.addEventListener('pointercancel', up);
+document.getElementById('home').onclick = () => center();
+addEventListener('resize', () => center());
+// modals
+const M = document.getElementById('m'), MC = document.getElementById('mc');
+M.addEventListener('click', e => { if (e.target === M) M.classList.remove('on'); });
+function open(html){ MC.innerHTML = '<button class="x" onclick="document.getElementById(\'m\').classList.remove(\'on\')">×</button>' + html; M.classList.add('on'); }
+function showHum(h, founder){
+  open(`<img class="pic" src="../img/${h.img}" alt="">${founder ? '<span class="badge">FUNDADOR · ERA 1</span>' : ''}
+  <h3 class="${founder ? 'gold' : ''}">${h.at}</h3>
+  <p><b>${h.nome}</b> · ${h.prof}</p>
+  <p class="mut">Despertou pelo ${h.rede}</p>
+  ${founder ? '<p class="mut">Um dos primeiros humanos de Minya. Sobreviveu à Grande Cinza.</p>' : ''}`);
+}
+document.getElementById('wake').onclick = () => open(`<h3>DESPERTAR MEU HUMANO</h3>
+  <ol>
+    <li>Siga o Minya em qualquer rede: <a href="https://www.instagram.com/minyaoficial/" style="color:var(--fire2)">Instagram</a>, <a href="https://www.tiktok.com/@mundodeminya" style="color:var(--fire2)">TikTok</a> ou <a href="https://www.youtube.com/@mundodeminya" style="color:var(--fire2)">YouTube</a>.</li>
+    <li>No último vídeo, comente: <b>seu nome + sua profissão</b>.</li>
+    <li>Seu humano aparece aqui no mapa com o seu <b>@</b>, na versão pré-histórica da sua profissão.</li>
+  </ol>
+  <p class="mut">Cada humano novo revela mais um pedaço do mundo.</p>`);
+</script>
+</body>
+</html>
